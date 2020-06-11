@@ -1,7 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Item, Input, Label, Button } from 'native-base';
+import Constants from 'expo-constants';
+import * as firbase from 'firebase';
+import {firebaseConfig} from './config'
 
+firbase.initializeApp(firebaseConfig)
 export default function App() {
   return (
     <View style={styles.container}>
@@ -14,12 +18,12 @@ export default function App() {
         <Input />
       </Item>
       <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-        <Button bordered success>
-          <Text>Success</Text>
-        </Button>
-        <Button bordered danger>
-          <Text>Danger</Text>
-        </Button>
+      <Button rounded success>
+            <Text>Success</Text>
+          </Button>
+          <Button rounded danger>
+            <Text>Danger</Text>
+          </Button>
 
       </View>
     </View>
@@ -30,7 +34,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });
