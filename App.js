@@ -10,19 +10,19 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Item floatingLabel>
-        <Label>Username</Label>
+        <Label>Enter Iteam</Label>
         <Input />
       </Item>
-      <Item floatingLabel last>
+      {/* <Item floatingLabel last>
         <Label>Password</Label>
         <Input />
-      </Item>
-      <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
-      <Button rounded success>
-            <Text>Success</Text>
+      </Item> */}
+      <View style={{ flexDirection: "row", padding: 20, justifyContent: 'space-between' }}>
+      <Button bordered success style={styles.mbtn}>
+            <Text>ADD</Text>
           </Button>
-          <Button rounded danger>
-            <Text>Danger</Text>
+          <Button bordered danger style={styles.mbtn}>
+            <Text>DELETE</Text>
           </Button>
 
       </View>
@@ -35,7 +35,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: Constants.statusBarHeight,
+    padding: 20,
     // alignItems: 'center',
     // justifyContent: 'center',
   },
+  mbtn: {
+    padding: 20,
+    width: 160,
+    justifyContent: 'center',
+  }
 });
