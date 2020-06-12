@@ -36,7 +36,7 @@ export default class App extends React.Component {
 
   removeData(){
     firbase.database().ref("users").remove()
-    this.setState({myList:[{text: "remove successfully", time:"0"}]})
+    this.setState({myList:[{text: "remove successfully",time: Date.now()}]})
   }
 
   render() {
