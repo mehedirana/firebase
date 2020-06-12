@@ -16,9 +16,10 @@ export default class App extends React.Component {
   }
 
   componentDidMount(){
-    const onData = firbase.database().ref("items")
+    const onData = firbase.database().ref("users")
     onData.on("value",dataShanp=>{
       console.log(dataShanp.val())
+      this.setState({myList: Object.values(dataShanp.val())})
     })
   }
   saveData(){
@@ -27,11 +28,16 @@ export default class App extends React.Component {
       text: this.state.text,
       time: Date.now()
     })
+    this.setState({text: ""})
+  }
 
+
+  removeData(){
+    firbase.database().ref("users").remove()
   }
 
   render() {
-
+    console.log(this.state)
     return (
       <View style={styles.container}>
         <Item floatingLabel>
@@ -52,7 +58,7 @@ export default class App extends React.Component {
             <Text>ADD</Text>
           </Button>
           <Button bordered danger style={styles.mbtn}
-          
+          onPress={()=>{this.removeData}}
           >
             <Text>DELETE</Text>
           </Button>
