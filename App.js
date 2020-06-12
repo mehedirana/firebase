@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Item, Input, Label, Button } from 'native-base';
+import { Item, Input, Label, Button, ListItem, List } from 'native-base';
 import Constants from 'expo-constants';
 import * as firbase from 'firebase';
 import { firebaseConfig } from './config'
@@ -19,7 +19,9 @@ export default class App extends React.Component {
     const onData = firbase.database().ref("users")
     onData.on("value",dataShanp=>{
       console.log(dataShanp.val())
-      this.setState({myList: Object.values(dataShanp.val())})
+      if(dataShanp.val()){
+        this.setState({myList: Object.values(dataShanp.val())})
+      }   
     })
   }
   saveData(){
@@ -34,10 +36,19 @@ export default class App extends React.Component {
 
   removeData(){
     firbase.database().ref("users").remove()
+    this.setState({myList:[{text: "remove successfully", time:"0"}]})
   }
 
   render() {
     console.log(this.state)
+    const myMap = this.state.myList.map((item)=>{
+      return(
+        <ListItem style={{justifyContent:'space-between'}} key={item.time}>
+          <Text>{item.text}</Text>
+          <Text>{new Date(item.time).toDateString()}</Text>
+        </ListItem>
+      )
+    })
     return (
       <View style={styles.container}>
         <Item floatingLabel>
@@ -58,12 +69,15 @@ export default class App extends React.Component {
             <Text>ADD</Text>
           </Button>
           <Button bordered danger style={styles.mbtn}
-          onPress={()=>{this.removeData}}
+          onPress={()=>{this.removeData()}}
           >
             <Text>DELETE</Text>
           </Button>
 
         </View>
+        <List style={{justifyContent:'space-between'}}>
+          {myMap}
+        </List>
       </View>
     );
   }
